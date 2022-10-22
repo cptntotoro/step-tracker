@@ -19,9 +19,9 @@ public class Main {
 
             if (menuCommand == 1) {
 
-                month = getDataFromUser(scanner, 0, 11, "Введите номер месяца: ") - 1;
+                month = getDataFromUser(scanner, 0, 11, "Введите номер месяца: ");
 
-                day = getDataFromUser(scanner, 0, 29, "Введите день: ") - 1;
+                day = getDataFromUser(scanner, 1, 30, "Введите день: ") - 1;
 
                 steps = getDataFromUser(scanner, 0, 100000, "Введите число шагов: ");
 
@@ -29,7 +29,7 @@ public class Main {
 
             } else if (menuCommand == 2) {
 
-                month = getDataFromUser(scanner, 0, 11, "Введите номер месяца: ") - 1;
+                month = getDataFromUser(scanner, 0, 11, "Введите номер месяца: ");
 
                 stepTracker.showMonthlyStats(month);
 
@@ -69,11 +69,6 @@ public class Main {
 
     /**
      * Получаем и проверяем данные, введённые пользователем
-     * @param scanner
-     * @param minValue
-     * @param maxValue
-     * @param message
-     * @return
      */
     static int getDataFromUser(Scanner scanner, int minValue, int maxValue, String message) {
         int data;

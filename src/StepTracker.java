@@ -5,19 +5,6 @@ public class StepTracker {
 
     Converter converter = new Converter();
 
-    StepTracker() {
-        // Заполняем массив нулевыми значениями
-        for (int month = 0; month < stepsPerDate.length; month++ ) {
-            for (int day = 0; day < stepsPerDate[0].length; day++) {
-                stepsPerDate[month][day] = 0;
-            }
-        }
-    }
-
-    /**
-     * Обновляем число шагов за нужную дату на значение, введенное пользователем
-     * @param
-     */
     void updateDailySteps(int month, int day, int steps) {
 
         stepsPerDate[month][day] = steps;
@@ -26,7 +13,6 @@ public class StepTracker {
 
     /**
      * Выводим различную статистику шагов
-     * @param
      */
     void showMonthlyStats(int month) {
 
@@ -43,17 +29,16 @@ public class StepTracker {
 
     /**
      * Выводим статистику шагов по дням за месяц
-     * @param
      */
     void showStepsPerDay(int month) {
-        for (int day = 0; day < stepsPerDate[0].length; day++) {
-            System.out.println(day + " день: " + stepsPerDate[month][day] + ", ");
+        for (int day = 0; day < stepsPerDate[month].length - 1; day++) {
+            System.out.print(day + 1 + " день: " + stepsPerDate[month][day] + ", ");
         }
+        System.out.println(stepsPerDate[month].length + " день: " + stepsPerDate[month][29]);
     }
 
     /**
      * Выводим общее число шагов за месяц
-     * @param
      */
     void showTotalSteps (int totalSteps) {
         System.out.println("Сумма шагов за выбранный месяц: " + totalSteps);
@@ -61,11 +46,10 @@ public class StepTracker {
 
     /**
      * Выводим максимальное пройденное количество шагов за месяц
-     * @param
      */
     void showMaxStepsValue(int month) {
         int maxStepsValue = 0;
-        for (int day = 0; day < stepsPerDate[0].length; day++) {
+        for (int day = 0; day < stepsPerDate[month].length; day++) {
             if (stepsPerDate[month][day] > maxStepsValue) {
                 maxStepsValue = stepsPerDate[month][day];
             }
@@ -76,24 +60,21 @@ public class StepTracker {
 
     /**
      * Выводим среднее число шагов за месяц
-     * @param
      */
     void showAverageSteps (int month) {
-        double averageSteps = (double) getTotalSteps(month) / stepsPerDate[0].length;
-        System.out.printf("Ваше среднее число шагов за месяц: %f%n", averageSteps);
+        double averageSteps = (double) getTotalSteps(month) / stepsPerDate[month].length;
+        System.out.printf("Ваше среднее число шагов за месяц: %.1f%n", averageSteps);
     }
 
     /**
      * Выводим пройденную дистанцию за месяц
-     * @param
      */
     void showTravelledDistance (int totalSteps) {
-        System.out.printf("Пройдено километров за месяц: %f%n", converter.convertCmToKm(totalSteps));
+        System.out.printf("Пройдено километров за месяц: %.1f%n", converter.convertCmToKm(totalSteps));
     }
 
     /**
      * Выводим число сожжённых калорий за месяц
-     * @param totalSteps
      */
     void showCcalBurned(int totalSteps) {
         System.out.println("Сожгли килокалорий за месяц: " + converter.convertCCalToCal(totalSteps));
@@ -101,8 +82,6 @@ public class StepTracker {
 
     /**
      * Получаем общее число шагов за месяц
-     * @param month
-     * @return
      */
     int getTotalSteps(int month) {
         int stepsTotal = 0;
@@ -114,7 +93,6 @@ public class StepTracker {
 
     /**
      * Показываем лучшую серию дней за месяц
-     * @param month
      */
     void showBestStreak(int month) {
         int daysMaxStreak = 0;
@@ -134,11 +112,10 @@ public class StepTracker {
 
     /**
      * Изменяем целевое число шагов на значение, введенное пользователем
-     * @param
      */
     public void changeStepsGoal(int newStepsGoal) {
 
-        this.defaultStepGoal = newStepsGoal;
+        defaultStepGoal = newStepsGoal;
 
     }
 
