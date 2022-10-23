@@ -1,13 +1,28 @@
 public class StepTracker {
 
     int defaultStepGoal = 10000;
-    int[][] stepsPerDate = new int[12][30];
 
     Converter converter = new Converter();
 
+    Month[] month;
+
+    public StepTracker() {
+        month = new Month[12];
+        for (int i = 0; i < month.length; i++) {
+            month[i] = new Month();
+        }
+    }
+
+
+    class Month {
+
+        int[] stepsPerDays = new int[30];
+
+    }
+
     void updateDailySteps(int month, int day, int steps) {
 
-        stepsPerDate[month][day] = steps;
+        this.month[month].stepsPerDays[day] = steps;
 
     }
 
@@ -31,10 +46,10 @@ public class StepTracker {
      * Выводим статистику шагов по дням за месяц
      */
     void showStepsPerDay(int month) {
-        for (int day = 0; day < stepsPerDate[month].length - 1; day++) {
-            System.out.print(day + 1 + " день: " + stepsPerDate[month][day] + ", ");
+        for (int day = 0; day < this.month[month].stepsPerDays.length - 1; day++) {
+            System.out.print(day + 1 + " день: " + this.month[month].stepsPerDays[day] + ", ");
         }
-        System.out.println(stepsPerDate[month].length + " день: " + stepsPerDate[month][29]);
+        System.out.println(this.month[month].stepsPerDays.length + " день: " + this.month[month].stepsPerDays[29]);
     }
 
     /**
@@ -49,9 +64,9 @@ public class StepTracker {
      */
     void showMaxStepsValue(int month) {
         int maxStepsValue = 0;
-        for (int day = 0; day < stepsPerDate[month].length; day++) {
-            if (stepsPerDate[month][day] > maxStepsValue) {
-                maxStepsValue = stepsPerDate[month][day];
+        for (int day = 0; day < this.month[month].stepsPerDays.length; day++) {
+            if (this.month[month].stepsPerDays[day] > maxStepsValue) {
+                maxStepsValue = this.month[month].stepsPerDays[day];
             }
         }
 
@@ -62,7 +77,7 @@ public class StepTracker {
      * Выводим среднее число шагов за месяц
      */
     void showAverageSteps (int month) {
-        double averageSteps = (double) getTotalSteps(month) / stepsPerDate[month].length;
+        double averageSteps = (double) getTotalSteps(month) / this.month[month].stepsPerDays.length;
         System.out.printf("Ваше среднее число шагов за месяц: %.1f%n", averageSteps);
     }
 
@@ -85,8 +100,8 @@ public class StepTracker {
      */
     int getTotalSteps(int month) {
         int stepsTotal = 0;
-        for (int day = 0; day < stepsPerDate[month].length; day++) {
-            stepsTotal = stepsTotal + stepsPerDate[month][day];
+        for (int day = 0; day < this.month[month].stepsPerDays.length; day++) {
+            stepsTotal = stepsTotal + this.month[month].stepsPerDays[day];
         }
         return stepsTotal;
     }
@@ -97,8 +112,8 @@ public class StepTracker {
     void showBestStreak(int month) {
         int daysMaxStreak = 0;
         int maxLength = 0;
-        for (int day = 0; day < stepsPerDate[month].length; day++) {
-            if (stepsPerDate[month][day] >= defaultStepGoal) {
+        for (int day = 0; day < this.month[month].stepsPerDays.length; day++) {
+            if (this.month[month].stepsPerDays[day] >= defaultStepGoal) {
                 maxLength++;
                 if (maxLength > daysMaxStreak) {
                     daysMaxStreak = maxLength;
